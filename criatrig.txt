@@ -1,0 +1,43 @@
+  DEFINE SERVICE( service_name )
+   [ CONTROL( MANUAL | QMGR | STARTONLY ) ]                                   
+   [ DESCR( string ) ]                     [ LIKE( service_name ) ]            
+   [ REPLACE | NOREPLACE ]                 [ SERVTYPE( SERVER | COMMAND ) ]    
+   [ STARTCMD( string ) ]                  [ STARTARG( string ) ]              
+   [ STOPCMD( string ) ]                   [ STOPARG( string ) ]               
+   [ STDOUT( string ) ]                    [ STDERR( string ) ]      
+
+       STARTARG('-m +QMNAME+ -q SYSTEM.DEFAULT.INITIATION.QUEUE') +
+
+
+DEFINE SERVICE(TRIGMON1)                                          +
+       CONTROL(QMGR)                                              +
+       SERVTYPE(SERVER)                                           +
+       STARTCMD('/usr/mqm/bin/runmqtrm')                          +
+       STARTARG('-m +QMNAME+ -q SYSTEM.DEFAULT.INITIATION.QUEUE') +
+       STOPCMD('/usr/mqm/bin/amqsstop')                           +
+       STOPARG('-m +QMNAME+ -p +MQ_SERVER_PID+')                  +
+       STDOUT('/home/epm/logs/runmqtrm.log')
+
+DISPLAY SERVICE(TRIGMON1)
+
+START  SERVICE(TRIGMON1)
+
+DISPLAY SVSTATUS(TRIGMON1)
+
+STOP   SERVICE(TRIGMON1)
+
+ALTER	SERVICE(TRIGMON1)                                          +
+	DESCR('Trigger Monitor')                                   +
+	STARTARG('-m +QMNAME+ -q TRIGGERQ')
+
+
+DEFINE SERVICE(TRIGMON1)                                          +
+       CONTROL(QMGR)                                              +
+       SERVTYPE(SERVER)                                           +
+       STARTCMD('/usr/mqm/bin/runmqtrm')                          +
+       STARTARG('-m +QMNAME+ -q TRIGGERQ') +
+       STOPCMD('/usr/mqm/bin/amqsstop')                           +
+       STOPARG('-m +QMNAME+ -p +MQ_SERVER_PID+')                  +
+       STDOUT('/home/mqm/logs/runmqtrm.log') +
+REPLACE
+

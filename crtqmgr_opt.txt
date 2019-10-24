@@ -1,0 +1,41 @@
+while getopts ":q:h" opt; do
+    case $opt in
+        q)
+            export QM=$1
+        ;;
+        h|\?)
+            print "\n$0 v$SCRIPTVER ($SCRIPTDATE) \nCarlos Alberto Bagatin; cbagatin@br.ibm.com"
+            print "Copyright IBM Corp. 2011 All Rights Reserved"
+            print "crtqmgr Package \n"
+            print "This is the primary script for the crtqmgr utility, which is main part of"
+            print "package that create the Queue Manager based on AHE standards."
+            print "Be parts of packge all files:"
+            print " - crtqmgr.sh "
+            print " - crtqmgr_QMGR.ini "
+            print " - crtqmgr_chls.ini "
+            print " - crtqmgr_mqsin.ini "
+            print " - crtqmgr_xtras.ini "
+            print "Each file is used to a particular set up . "
+            print "* crtqmgr.sh " 
+            print "  This script, that get parameters from auxiliaries files and build the qmgr. "
+            print "  (you can check the result on output file: crtqmgr.out) "
+            print "* crtqmgr_QMGR.ini "
+            print "  File with information about kind of mq log, port number and HA setting. "
+            print "* crtqmgr_chls.ini "
+            print "  File with information about channels, we used to this to set 'nobody' to SYSTEM's channels. "
+            print "* crtqmgr_mqsin.ini "
+            print "  File that provide extra information that needs to put on qm.ini like TCP: SSL:. "
+            print "* crtqmgr_xtras.ini "
+            print "  File with all QMGR parameters tha should used to apply statistics, metrics, and other configuration."
+            print "If you have suggestions or concerns that could be added or improved, please "
+            print "contact Carlos Alberto Bagatin at cbagatin@br.ibm.com\n"
+            print "usage: $0 [ -h ] this help | [ -q <QMGR_NAME> ]"
+            print "\t -m <QMGR_NAME> by pass the QMGR_NAME from crtmqm_QMGR.ini file."
+            print "\t------------------------------------------------------------"
+            print "\t -?            show this usage statement"
+            print ""
+            exit 1
+        ;;
+    esac
+done
+echo "QMGR: ${QM}"

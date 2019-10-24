@@ -1,0 +1,64 @@
+while getopts ":q:h" opt; do
+    case $opt in
+        q)
+            COMPLETEMODE=false
+        ;;
+        h)
+            COMPLETEMODE=true
+        ;;
+        \?)
+            print "\n$0 v$SCRIPTVER ($SCRIPTDATE) \nCarlos Alberto Bagatin; cbagatin@br.ibm.com"
+            print "Copyright IBM Corp. 2011 All Rights Reserved"
+            print "crtqmgr Package "
+            print "\nThis is the primary script for the crtqmgr utility, which is main part of\
+package that create the Queue Manager based on AHE standards.\
+Be parts of packge all files:\
+ - crtqmgr.sh \
+ - crtqmgr_QMGR.ini\
+ - crtqmgr_chls.ini\
+ - crtqmgr_mqsin.ini\
+ - crtqmgr_xtras.ini\
+Each file is used to a particular set up . \
+* crtqmgr.sh \
+  This script, that get parameters from auxiliaries files and build the qmgr.\
+  (you can check the result on output file: crtqmgr.out)\
+* crtqmgr_QMGR.ini \
+  File with information about kind of mq log, port number and HA setting.\
+* crtqmgr_chls.ini \
+  File with information about channels, we used to this to set 'nobody' to SYSTEM's channels.\
+* crtqmgr_mqsin.ini\
+ - crtqmgr_xtras.ini\
+
+  print "\nIf you have suggestions for modules that could be added o
+r improved, please \ncontact Chris Kline at cnkline@us.ibm.com"
+                        print "\nusage: $0 [ -x|c ] [ -nvfj -l <log_file> -m <mail_addr> -
+d <conf_file> ]"
+                        print "\t -x            run in \"express\" mode (default)"
+                        print "\t -c            run in \"complete\" mode"
+                        print "\t---------------------------------------------------------
+---"
+                        print "\t -n            no user-interaction necessary (for schedul
+ed runs)"
+                        print "\t -f            force user to act as mqm"
+                        print "\t -d <filename> specify config file\n\t               (def
+ault: $CONFIGFILE)"
+                        print "\t -v           show verbose output"
+                        print "\t -l <log_file> specify log output file"
+                        print "\t -M|m <addr>   send output logs to specified email addres
+s"
+                        print "\t               if you use \"M\" instead of \"m\" as your
+option,"
+                        print "\t               don't include any addresses and the defaul
+t addresses "
+                        print "\t               in mqtools.mail will automatically be used
+"
+                        print "\t -j            Add a line to the log file indicating that
+"
+                        print "\t               $0 was started "
+                        print "\t               via a cron job"
+                        print "\t -?            show this usage statement"
+                        print ""
+                        exit 1
+                ;;
+        esac
+done
